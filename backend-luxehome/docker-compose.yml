@@ -1,0 +1,27 @@
+services:
+  mysql:
+    container_name: mysql-db
+    image : mysql:8
+    environment:
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - spring-demo
+  mail-dev:
+    container_name: mail-dev-bsn
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1024:2024
+volumes:
+  mysql-data:
+
+networks:
+  spring-demo:
+    driver: bridge
