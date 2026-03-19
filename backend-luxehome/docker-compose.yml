@@ -17,8 +17,11 @@ services:
     container_name: mail-dev-bsn
     image: maildev/maildev
     ports:
-      - 1080:1080
-      - 1024:2024
+      - "1080:1080"
+      - "1025:2025"
+    networks:
+      - spring-demo
+    restart: unless-stopped
 volumes:
   mysql-data:
 
