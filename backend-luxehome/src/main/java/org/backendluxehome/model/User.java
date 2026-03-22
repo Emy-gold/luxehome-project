@@ -5,14 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
 @Data
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Builder
 @AllArgsConstructor
@@ -30,6 +35,14 @@ public class User implements UserDetails, Principal {
     private String password;
     private boolean accountLocked;
     private boolean enabled;
+    private String role;
+
+    @CreatedDate
+    @Column(nullable = false,updatable = false)
+    private LocalDateTime createdDate;
+    @LastModifiedDate
+    @Column(insertable = false)
+    private LocalDateTime lastModifiedDate;
 
     @Override
     public String getName() {
@@ -48,7 +61,7 @@ public class User implements UserDetails, Principal {
 
     @Override
     public String getUsername() {
-        return getUsername();
+        return email;
     }
 
     @Override
@@ -69,5 +82,9 @@ public class User implements UserDetails, Principal {
     @Override
     public boolean isEnabled(){
         return enabled;
+    }
+
+    private String fullName() {
+        return firstName + " " + lastname;
     }
 }
