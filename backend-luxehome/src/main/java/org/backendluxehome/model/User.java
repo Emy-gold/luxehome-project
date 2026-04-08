@@ -31,7 +31,7 @@ public class User implements UserDetails, Principal {
     @Id
     @GeneratedValue
     private Long id;
-    private String firstName;
+    private String firstname;
     private String lastname;
     @Column(unique = true)
     private String email;
@@ -95,6 +95,6 @@ public class User implements UserDetails, Principal {
     }
 
     private String fullName() {
-        return firstName + " " + lastname;
+        return firstname + " " + lastname;
     }
 }

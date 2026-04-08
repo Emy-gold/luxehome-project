@@ -20,8 +20,8 @@ public class Token {
     @GeneratedValue
     private Long id;
     private String token;
-    private LocalDate createdAt;
-    private LocalDate expiredAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime expiredAt;
     private LocalDate validatedAt;
 
     @ManyToOne
