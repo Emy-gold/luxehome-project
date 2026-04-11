@@ -1,6 +1,7 @@
 package org.backendluxehome.service;
 
 
+import jakarta.mail.MessagingException;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.backendluxehome.dto.RegistrationRequest;
@@ -9,7 +10,9 @@ import org.backendluxehome.model.User;
 import org.backendluxehome.repository.RoleRepository;
 import org.backendluxehome.repository.TokenRepository;
 import org.backendluxehome.repository.UserRepository;
+import org.backendluxehome.template.EmailTemplateName;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
@@ -26,8 +29,10 @@ public class AuthentificationService {
     private final UserRepository userRepository;
     private final TokenRepository tokenRepository;
     private final EmailService emailService;
+    @Value("${application.mailing.frontend.activation-url}")
+    private String activationUrl;
 
-    public void register(RegistrationRequest request) {
+    public void register(RegistrationRequest request) throws MessagingException {
         var userRole = roleRepository.findByName("USER")
                 //TODO - BETTER EXCEPTION HANDLING
                 .orElseThrow(() -> new IllegalArgumentException("ROLE USER was not initialized"));
@@ -45,9 +50,17 @@ public class AuthentificationService {
         sendValidationEmail(user);
     }
 
-    private void sendValidationEmail(User user) {
+    private void sendValidationEmail(User user) throws MessagingException {
         //Send the email
         var newToken = generateAndSaveActivationToken(user);
+        emailService.sendEmail(
+                user.getEmail(),
+                user.getFullName(),
+                EmailTemplateName.ACTIVATE_ACCOUNT,
+                activationUrl,
+                newToken,
+                "Account activation"
+        );
     }
 
     private String generateAndSaveActivationToken(User user){
