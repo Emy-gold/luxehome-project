@@ -19,11 +19,13 @@ public class AuthentificationController {
 
     private final AuthentificationService service;
 
+
     @PostMapping(value = "/register")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> register(
             @RequestBody @Valid RegistrationRequest request
     ) throws MessagingException {
+        System.out.println("CONTROLLER HIT ✔");
         service.register(request);
         return ResponseEntity.accepted().build();
     }

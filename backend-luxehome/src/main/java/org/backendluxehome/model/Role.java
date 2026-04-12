@@ -21,9 +21,9 @@ import java.util.List;
 public class Role {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_role;
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String roleName;
 
     //create a relationship between users and roles

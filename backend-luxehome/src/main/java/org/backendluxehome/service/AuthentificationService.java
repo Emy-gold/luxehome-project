@@ -33,7 +33,7 @@ public class AuthentificationService {
     private String activationUrl;
 
     public void register(RegistrationRequest request) throws MessagingException {
-        var userRole = roleRepository.findByName("USER")
+        var userRole = roleRepository.findByRoleName("ROLE_USER")
                 //TODO - BETTER EXCEPTION HANDLING
                 .orElseThrow(() -> new IllegalArgumentException("ROLE USER was not initialized"));
         var user = User.builder()
