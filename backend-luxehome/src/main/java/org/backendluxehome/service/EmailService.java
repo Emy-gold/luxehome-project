@@ -3,6 +3,7 @@ package org.backendluxehome.service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.backendluxehome.template.EmailTemplateName;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -20,7 +21,7 @@ import static org.springframework.mail.javamail.MimeMessageHelper.MULTIPART_MODE
 
 @Service
 @RequiredArgsConstructor
-@EnableAsync
+@Slf4j
 public class EmailService {
 
     private final JavaMailSender mailSender;

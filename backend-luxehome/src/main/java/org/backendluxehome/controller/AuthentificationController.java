@@ -5,6 +5,7 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.Registration;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.backendluxehome.dto.AuthentificationRequest;
 import org.backendluxehome.dto.RegistrationRequest;
 import org.backendluxehome.service.AuthentificationService;
 import org.springframework.http.HttpStatus;
@@ -28,5 +29,11 @@ public class AuthentificationController {
         System.out.println("CONTROLLER HIT ✔");
         service.register(request);
         return ResponseEntity.accepted().build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthentificationResponces> login(
+            @RequestBody @Valid AuthentificationRequest request){
+        return ResponseEntity.ok(service.login(request));
     }
 }
