@@ -2,10 +2,10 @@ package org.backendluxehome.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
-import jakarta.servlet.Registration;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.backendluxehome.dto.AuthentificationRequest;
+import org.backendluxehome.dto.AuthentificationResponse;
 import org.backendluxehome.dto.RegistrationRequest;
 import org.backendluxehome.service.AuthentificationService;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class AuthentificationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthentificationResponces> login(
+    public ResponseEntity<AuthentificationResponse> login(
             @RequestBody @Valid AuthentificationRequest request){
         return ResponseEntity.ok(service.login(request));
     }
