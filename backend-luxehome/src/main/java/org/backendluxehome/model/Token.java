@@ -22,7 +22,7 @@ public class Token {
     private String token;
     private LocalDateTime createdAt;
     private LocalDateTime expiredAt;
-    private LocalDate validatedAt;
+    private LocalDateTime ValidatedAt;
 
     @ManyToOne
     @JoinColumn(name = "userId",nullable = false)

@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.backendluxehome.dto.AuthentificationRequest;
 import org.backendluxehome.dto.AuthentificationResponse;
 import org.backendluxehome.dto.RegistrationRequest;
@@ -35,5 +36,13 @@ public class AuthentificationController {
     public ResponseEntity<AuthentificationResponse> login(
             @RequestBody @Valid AuthentificationRequest request){
         return ResponseEntity.ok(service.login(request));
+    }
+
+    @SneakyThrows
+    @GetMapping("/activate-account")
+    public void confirm(
+            @RequestParam String token
+    ){
+        service.activateAccount(token);
     }
 }
