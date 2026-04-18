@@ -35,6 +35,7 @@ public class AuthentificationController {
     @PostMapping("/login")
     public ResponseEntity<AuthentificationResponse> login(
             @RequestBody @Valid AuthentificationRequest request){
+        System.out.println("LOGIN CONTROLLER HIT");
         return ResponseEntity.ok(service.login(request));
     }
 

@@ -18,6 +18,7 @@ import org.backendluxehome.template.EmailTemplateName;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -98,17 +99,23 @@ public class AuthentificationService {
     }
 
     public AuthentificationResponse login(AuthentificationRequest request){
-        var auth = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-        var claims = new HashMap<String, Object>();
-        var user = ((User)auth.getPrincipal());
-        claims.put("fullName",user.fullName());
-        var jwtToken = jwtService.generateToken(claims,user);
-        return AuthentificationResponse.builder().token(jwtToken).build();
+        System.out.println("PRINCIPAL = " + SecurityContextHolder.getContext().getAuthentication());
+        try {
+            var auth = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()
+                    )
+            );
+            var claims = new HashMap<String, Object>();
+            var user = ((User)auth.getPrincipal());
+            claims.put("fullName",user.fullName());
+            var jwtToken = jwtService.generateToken(claims,user);
+            return AuthentificationResponse.builder().token(jwtToken).build();
+        } catch (Exception e) {
+            System.out.println("LOGIN ERROR: " + e.getClass().getName() + " - " + e.getMessage());
+            throw e;
+        }
     }
 
     @Transactional
