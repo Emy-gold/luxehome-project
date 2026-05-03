@@ -1,7 +1,7 @@
 package org.backendluxehome;
 
-import org.backendluxehome.model.Role;
-import org.backendluxehome.repository.RoleRepository;
+import org.backendluxehome.modules.role.entity.Role;
+import org.backendluxehome.modules.role.repository.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
