@@ -1,4 +1,4 @@
-package org.backendluxehome.service;
+package org.backendluxehome.security;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
