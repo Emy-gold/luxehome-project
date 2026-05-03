@@ -2,24 +2,21 @@ package org.backendluxehome.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name ="categories")
-public class Category {
+@SuperBuilder
+public class Category extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
-    private Integer id;
 
     @Column(nullable = false)
     private String name;
-
 
 }

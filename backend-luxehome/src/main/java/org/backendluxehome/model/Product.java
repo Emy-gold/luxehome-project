@@ -1,30 +1,24 @@
 package org.backendluxehome.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
-@Data
-@Builder
+@Getter
+@Setter
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "products")
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Product extends BaseEntity{
 
     @Column(nullable = false)
     private String name;
+
     private String description;
 
     @Column(nullable = false)
@@ -32,13 +26,5 @@ public class Product {
 
     @Column(nullable = false)
     private int stock;
-
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(insertable = false)
-    private LocalDateTime modifiedAt;
 
 }
