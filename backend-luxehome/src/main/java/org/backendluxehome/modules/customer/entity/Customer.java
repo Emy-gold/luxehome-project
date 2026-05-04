@@ -1,9 +1,8 @@
 package org.backendluxehome.modules.customer.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+import org.backendluxehome.modules.cart.entity.Cart;
 import org.backendluxehome.modules.user.entity.User;
 
 @Getter
@@ -17,5 +16,6 @@ public class Customer extends User {
 
     private String phone;
 
-
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Cart cart;
 }
