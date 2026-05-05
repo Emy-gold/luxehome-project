@@ -1,14 +1,17 @@
 package org.backendluxehome.modules.order.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.backendluxehome.modules.adress.entity.Address;
 import org.backendluxehome.modules.commun.BaseEntity;
+import org.backendluxehome.modules.customer.entity.Customer;
+import org.backendluxehome.modules.orderitem.entity.OrderItem;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,4 +23,15 @@ public class Order extends BaseEntity {
 
     private String status;
     private BigDecimal totalAmount;
+
+    @ManyToOne(fetch =FetchType.LAZY)
+    @JoinColumn(name = "customer_id",nullable = false)
+    private Customer customer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "adress_id", nullable = false)
+    private Address address;
+
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems;
 }

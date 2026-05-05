@@ -1,12 +1,12 @@
 package org.backendluxehome.modules.payment.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.backendluxehome.modules.commun.BaseEntity;
+import org.backendluxehome.modules.order.entity.Order;
 
 import java.math.BigDecimal;
 
@@ -18,7 +18,13 @@ import java.math.BigDecimal;
 @Table(name = "payment")
 public class Payment extends BaseEntity {
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false, unique = true)
+    private Order order;
+
     private PaymentMethod paymentMethod;
     private PaymentStatus paymentStatus;
     private BigDecimal amount;
+
+
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.backendluxehome.modules.cart.entity.Cart;
 import org.backendluxehome.modules.commun.BaseEntity;
+import org.backendluxehome.modules.product.entity.Product;
 
 import java.math.BigDecimal;
 
@@ -25,5 +26,8 @@ public class CartItem extends BaseEntity {
     @JoinColumn(name = "cart_id",nullable = false)
     private Cart cart;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id",nullable = false)
+    private Product product;
 
 }
