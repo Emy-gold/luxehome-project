@@ -9,6 +9,7 @@ import org.backendluxehome.modules.adress.entity.Address;
 import org.backendluxehome.modules.commun.BaseEntity;
 import org.backendluxehome.modules.customer.entity.Customer;
 import org.backendluxehome.modules.orderitem.entity.OrderItem;
+import org.backendluxehome.modules.payment.entity.Payment;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -34,4 +35,7 @@ public class Order extends BaseEntity {
 
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
 }

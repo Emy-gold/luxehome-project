@@ -31,7 +31,4 @@ public class Address extends BaseEntity {
 
     @OneToMany(mappedBy = "address")
     private List<Order> orders;
-
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
-    private Payment payment;
 }
