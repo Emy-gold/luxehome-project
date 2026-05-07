@@ -1,6 +1,7 @@
 package org.backendluxehome.modules.product.mapper;
 
 import org.backendluxehome.modules.product.dto.ProductRequest;
+import org.backendluxehome.modules.product.dto.ProductResponse;
 import org.backendluxehome.modules.product.entity.Product;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +16,17 @@ public class ProductMapper {
                 .stock(request.stock())
                 .build();
 
+    }
+
+    public ProductResponse toProductResponse(Product product){
+        return ProductResponse.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                .stock(product.getStock())
+                .categoryName(product.getCategory().getName())
+                .imageUrl(product.getImage().getUrl())
+                .build();
     }
 }
