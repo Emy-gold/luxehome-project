@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.backendluxehome.modules.product.entity.Product;
 import org.backendluxehome.modules.role.entity.Role;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -43,6 +44,9 @@ public class User implements UserDetails, Principal {
     //create a relationship between users and roles
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Product> products;
 
     @CreatedDate
     @Column(nullable = false,updatable = false)

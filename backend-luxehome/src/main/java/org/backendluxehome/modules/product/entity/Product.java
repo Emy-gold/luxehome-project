@@ -8,6 +8,7 @@ import org.backendluxehome.modules.category.entity.Category;
 import org.backendluxehome.modules.commun.BaseEntity;
 import org.backendluxehome.modules.orderitem.entity.OrderItem;
 import org.backendluxehome.modules.productimages.entity.ProductImages;
+import org.backendluxehome.modules.user.entity.User;
 
 
 import java.math.BigDecimal;
@@ -32,6 +33,10 @@ public class Product extends BaseEntity {
 
     @Column(nullable = false)
     private int stock;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
