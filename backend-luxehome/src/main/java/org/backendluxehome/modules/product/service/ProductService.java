@@ -1,7 +1,9 @@
 package org.backendluxehome.modules.product.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.backendluxehome.modules.product.dto.ProductRequest;
+import org.backendluxehome.modules.product.dto.ProductResponse;
 import org.backendluxehome.modules.product.entity.Product;
 import org.backendluxehome.modules.product.mapper.ProductMapper;
 import org.backendluxehome.modules.product.repository.ProductRepository;
@@ -22,6 +24,12 @@ public class ProductService {
         Product product = productMapper.toProduct(request);
         product.setOwner(user);
         return productRepository.save(product).getId();
+    }
+
+    public ProductResponse findById(Integer productId){
+        return productRepository.findById(productId)
+                .map(productMapper::toProductResponse)
+                .orElseThrow(() -> new EntityNotFoundException("No product found with the id : " + productId));
     }
 
 }

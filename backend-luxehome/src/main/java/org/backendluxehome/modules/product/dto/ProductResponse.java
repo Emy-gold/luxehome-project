@@ -18,5 +18,6 @@ public class ProductResponse {
     private int stock;
     private String categoryName;
     private String imageUrl;
+    private double rating;
 
 }

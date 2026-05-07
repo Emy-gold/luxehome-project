@@ -5,6 +5,8 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.backendluxehome.modules.commun.BaseEntity;
 import org.backendluxehome.modules.customer.entity.Customer;
+import org.backendluxehome.modules.product.entity.Product;
+import org.hibernate.annotations.Fetch;
 
 @Entity
 @Getter
@@ -22,5 +24,9 @@ public class Review extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id",nullable = false)
+    private Product product;
 
 }

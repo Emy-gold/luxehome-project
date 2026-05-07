@@ -27,6 +27,7 @@ public class ProductMapper {
                 .stock(product.getStock())
                 .categoryName(product.getCategory().getName())
                 .imageUrl(product.getImage().getUrl())
+                .rating(product.getRating())
                 .build();
     }
 }
