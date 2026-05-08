@@ -3,6 +3,8 @@ package org.backendluxehome.modules.product.dto;
 import jakarta.persistence.Cache;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.backendluxehome.modules.category.entity.Category;
 import org.backendluxehome.modules.productimages.entity.ProductImages;
 
@@ -16,12 +18,13 @@ public record ProductRequest(
         String name,
         String description,
         @NotNull(message = "101")
-        @NotEmpty(message = "101")
+        @Positive(message = "price must be > 0")
         BigDecimal price,
         @NotNull(message = "102")
-        @NotEmpty(message = "102")
+        @PositiveOrZero(message = "stock must be >= 0")
         int stock,
-        Long categoryId,
-        Long  imageId
+        Integer categoryId,
+        Integer imageId
+
         ) {
 }

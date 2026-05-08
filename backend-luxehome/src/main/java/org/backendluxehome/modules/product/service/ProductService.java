@@ -2,6 +2,8 @@ package org.backendluxehome.modules.product.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.backendluxehome.modules.category.entity.Category;
+import org.backendluxehome.modules.category.repository.CategoryRepository;
 import org.backendluxehome.modules.product.dto.ProductRequest;
 import org.backendluxehome.modules.product.dto.ProductResponse;
 import org.backendluxehome.modules.product.entity.Product;
@@ -17,12 +19,19 @@ public class ProductService {
 
     private final ProductMapper productMapper;
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
     public Integer save(ProductRequest request, Authentication connectedUser){
         //Get the user from authentication object
         User user = ((User) connectedUser.getPrincipal());
         Product product = productMapper.toProduct(request);
         product.setOwner(user);
+
+        Category category =
+                categoryRepository.findById(request.categoryId())
+                .orElseThrow(() -> new EntityNotFoundException("Category not found"));
+
+        product.setCategory(category);
         return productRepository.save(product).getId();
     }
 

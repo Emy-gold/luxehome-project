@@ -26,7 +26,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.save(request, connectedUser));
     }
 
-    @GetMapping("${product-id}")
+    @GetMapping("/{product-id}")
     public ResponseEntity<ProductResponse> findProductById(
             @PathVariable("product-id") Integer productID
     ){

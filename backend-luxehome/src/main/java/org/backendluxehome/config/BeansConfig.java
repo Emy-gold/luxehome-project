@@ -36,6 +36,7 @@ public class BeansConfig {
         return config.getAuthenticationManager();
     }
 
+    @Bean
     public AuditorAware<Long> auditorAware(){
         return new ApplicationAuditAware();
     }
