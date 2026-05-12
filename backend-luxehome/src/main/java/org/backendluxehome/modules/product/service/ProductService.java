@@ -11,8 +11,14 @@ import org.backendluxehome.modules.product.entity.Product;
 import org.backendluxehome.modules.product.mapper.ProductMapper;
 import org.backendluxehome.modules.product.repository.ProductRepository;
 import org.backendluxehome.modules.user.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +48,21 @@ public class ProductService {
                 .orElseThrow(() -> new EntityNotFoundException("No product found with the id : " + productId));
     }
 
-    public PageResponse<ProductResponse> findAllProduct(int page, int size, Authentication connectedUser){
-        return null;
+    public PageResponse<ProductResponse> findAllProducts(int page, int size, Authentication connectedUser){
+        User user = ((User) connectedUser.getPrincipal());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdBy").descending());
+        Page<Product> products = productRepository.findAllDisplayableProducts(pageable, user.getId());
+        List<ProductResponse> productResponse = products.stream()
+                .map(productMapper::toProductResponse)
+                .toList();
+        return new PageResponse<>(
+                productResponse,
+                products.getNumber(),
+                products.getSize(),
+                products.getTotalElements(),
+                (long) products.getTotalPages(),
+                products.isFirst(),
+                products.isLast()
+        );
     }
 }
