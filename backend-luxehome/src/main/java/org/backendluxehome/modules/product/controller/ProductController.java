@@ -32,4 +32,13 @@ public class ProductController {
     ){
         return ResponseEntity.ok(productService.findById(productID));
     }
+    
+    @GetMapping
+    public ResponseEntity<PageResponse <ProductResponse>> findAllProducts(
+            @RequestParam(name = "page", defaultValue = "0", required = false ) int page,
+            @RequestParam(name = "size",defaultValue = "10",required = false) int size,
+            Authentication connectedUser
+    ){
+        return ResponseEntity.ok(productService.findAllProducts(page, size, connectedUser));
+    }
 }
