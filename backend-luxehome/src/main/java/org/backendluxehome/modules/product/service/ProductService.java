@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.backendluxehome.modules.category.entity.Category;
 import org.backendluxehome.modules.category.repository.CategoryRepository;
+import org.backendluxehome.modules.commun.PageResponse;
 import org.backendluxehome.modules.product.dto.ProductRequest;
 import org.backendluxehome.modules.product.dto.ProductResponse;
 import org.backendluxehome.modules.product.entity.Product;
@@ -41,4 +42,7 @@ public class ProductService {
                 .orElseThrow(() -> new EntityNotFoundException("No product found with the id : " + productId));
     }
 
+    public PageResponse<ProductResponse> findAllProduct(int page, int size, Authentication connectedUser){
+        return null;
+    }
 }

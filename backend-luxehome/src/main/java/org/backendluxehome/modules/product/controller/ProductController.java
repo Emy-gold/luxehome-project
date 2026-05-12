@@ -3,6 +3,7 @@ package org.backendluxehome.modules.product.controller;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.backendluxehome.modules.commun.PageResponse;
 import org.backendluxehome.modules.product.dto.ProductRequest;
 import org.backendluxehome.modules.product.dto.ProductResponse;
 import org.backendluxehome.modules.product.service.ProductService;
@@ -34,7 +35,7 @@ public class ProductController {
     }
     
     @GetMapping
-    public ResponseEntity<PageResponse <ProductResponse>> findAllProducts(
+    public ResponseEntity<PageResponse<ProductResponse>> findAllProducts(
             @RequestParam(name = "page", defaultValue = "0", required = false ) int page,
             @RequestParam(name = "size",defaultValue = "10",required = false) int size,
             Authentication connectedUser
